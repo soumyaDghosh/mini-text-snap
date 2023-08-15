@@ -1,0 +1,39 @@
+name: mini-text # you probably want to 'snapcraft register <name>'
+base: core22 # the base snap is the execution environment for this snap
+adopt-info: mini-text
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+
+parts:
+  mini-text:
+    # See 'snapcraft plugins'
+    plugin: meson
+    source: https://github.com/Nokse22/mini-text.git
+    source-tag: 'v0.1.7'
+    source-depth: 1
+    parse-info: [ usr/share/appdata/io.github.nokse22.minitext.appdata.xml ]
+    build-packages:
+      - blueprint-compiler
+    meson-parameters:
+      - --prefix=/snap/mini-text/current/usr
+    override-build: |
+      craftctl default
+      sed -e '1c#!/usr/bin/env python3' -i ${CRAFT_PART_INSTALL}/snap/mini-text/current/usr/bin/mini-text
+      chmod +x $CRAFT_PART_INSTALL/snap/mini-text/current/usr/bin/mini-text
+    organize:
+      snap/mini-text/current: .
+
+slots:
+  mini-text:
+    interface: dbus
+    bus: session
+    name: io.github.nokse22.minitext
+
+apps:
+  mini-text:
+    command: usr/bin/mini-text
+    extensions: [ gnome ]
+    common-id: io.github.nokse22.minitext
+    desktop: usr/share/applications/io.github.nokse22.minitext.desktop
+    plugs:
+      - home
