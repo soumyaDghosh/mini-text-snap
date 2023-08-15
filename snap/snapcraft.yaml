@@ -35,5 +35,3 @@ apps:
     extensions: [ gnome ]
     common-id: io.github.nokse22.minitext
     desktop: usr/share/applications/io.github.nokse22.minitext.desktop
-    plugs:
-      - home
