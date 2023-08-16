@@ -1,4 +1,4 @@
-name: minitext # you probably want to 'snapcraft register <name>'
+name: mini-text # you probably want to 'snapcraft register <name>'
 base: core22 # the base snap is the execution environment for this snap
 adopt-info: mini-text
 grade: stable # must be 'stable' to release into candidate/stable channels
@@ -14,7 +14,7 @@ architectures:
   - build-on: armhf
 
 parts:
-  minitext:
+  mini-text:
     # See 'snapcraft plugins'
     plugin: meson
     source: https://github.com/Nokse22/mini-text.git
@@ -33,13 +33,13 @@ parts:
       snap/mini-text/current: .
 
 slots:
-  minitext:
+  mini-text:
     interface: dbus
     bus: session
     name: io.github.nokse22.minitext
 
 apps:
-  minitext:
+  mini-text:
     command: usr/bin/mini-text
     extensions: [ gnome ]
     common-id: io.github.nokse22.minitext
