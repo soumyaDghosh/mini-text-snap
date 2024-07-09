@@ -1,28 +1,21 @@
-name: mini-text # you probably want to 'snapcraft register <name>'
-base: core22 # the base snap is the execution environment for this snap
+name: mini-text
+base: core24
 adopt-info: mini-text
-grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
-website: https://github.com/Nokse22/mini-text
-license: GPL-3.0
-source-code: https://github.com/Nokse22/mini-text
-issues: https://github.com/Nokse22/mini-text/issues
-contact: https://github.com/Nokse22/mini-text
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+grade: stable
+confinement: strict
+platforms:
+  amd64:
+  arm64:
 
 parts:
   mini-text:
-    # See 'snapcraft plugins'
     plugin: meson
     source: https://github.com/Nokse22/mini-text.git
     source-tag: 'v0.2.2'
     source-depth: 1
     parse-info: [ usr/share/appdata/io.github.nokse22.minitext.appdata.xml ]
-    build-packages:
-      - blueprint-compiler
+    build-snaps:
+      - blueprint-compiler/latest/edge
     meson-parameters:
       - --prefix=/snap/mini-text/current/usr
     override-build: |
